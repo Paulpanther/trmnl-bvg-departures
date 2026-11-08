@@ -5,12 +5,14 @@ dark_mode: 'no'
 static_data: ''
 polling_verb: get
 framework_version: 2.3.7
-serverless_language:
-refresh_interval_floor:
+serverless_language: ''
+refresh_interval_floor: ''
 polling_url: "https://v6.bvg.transport.rest/stops/{{node}}/departures?results={{results}}&duration={{duration}}&language={{language}}\r\nhttps://v6.bvg.transport.rest/stops/900230999/departures?results=5&duration=60&language=de&bus=false&tram=false"
 polling_headers: ''
 polling_body: ''
 id: 113756
+oauth_enabled: 'false'
+oauth_pkce_enabled: 'no'
 custom_fields:
 - keyname: bio
   name: About This Plugin
@@ -42,5 +44,5 @@ custom_fields:
   field_type: string
   default: en
 name: BVG departures
-description:
+description: ''
 refresh_interval: 15
