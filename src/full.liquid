@@ -1,0 +1,30 @@
+<div class="layout">
+  <div class="columns">
+    <div class="column">
+      <table class="table">
+        <thead>
+          <tr>
+            <th><span class="label label--small">Uhrzeit</span></th>
+            <th><span class="label label--small">Linie</span></th>
+            <th><span class="label label--small">Richtung</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for depature in IDX_0.departures limit: 8 %}
+          <tr>
+            <td><span class="title title--small">{{depature.when | l_date: '%H:%M'}} ({{depature.plannedWhen | l_date: '%H:%M'}})</span></td>
+            <td><span class="label">{{depature.line.productName}} {{depature.line.name}}</span></td>
+            <td><span class="label">{{depature.direction | remove: "Potsdam, "}}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="title_bar">
+  <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
+  <span class="title">{{ trmnl.plugin_settings.instance_name }}</span>
+  <span class="instance">Abfahrten {{trmnl.plugin_settings.custom_fields_values.station}}</span>
+</div>
