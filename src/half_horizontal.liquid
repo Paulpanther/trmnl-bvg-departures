@@ -1,6 +1,7 @@
 {%- assign lang = trmnl.plugin_settings.custom_fields_values.language | default: 'en' | downcase -%}
 {%- assign duration = trmnl.plugin_settings.custom_fields_values.duration | default: 60 -%}
-{%- assign count = IDX_0.departures.size | default: 0 -%}
+{%- assign deps = IDX_0.departures | default: departures -%}
+{%- assign count = deps.size | default: 0 -%}
 {%- if lang == 'de' -%}
   {%- assign t_time = 'Uhrzeit' -%}{%- assign t_line = 'Linie' -%}{%- assign t_dir = 'Richtung' -%}
   {%- assign t_title = 'Abfahrten' -%}{%- assign t_empty = 'Keine Abfahrten' -%}
@@ -17,7 +18,7 @@
     <div class="column">
       <table class="table">
         <tbody>
-          {%- for d in IDX_0.departures limit: 4 %}
+          {%- for d in deps limit: 4 %}
           <tr>
             <td><span class="title title--small">{{ d.when | default: d.plannedWhen | l_date: '%H:%M' }} ({{ d.plannedWhen | l_date: '%H:%M' }})</span></td>
             <td><span class="label">{{ d.line.productName }} {{ d.line.name }}</span></td>
