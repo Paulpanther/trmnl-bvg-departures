@@ -1,23 +1,43 @@
+{%- assign lang = trmnl.plugin_settings.custom_fields_values.language | default: 'en' | downcase -%}
+{%- assign duration = trmnl.plugin_settings.custom_fields_values.duration | default: 60 -%}
+{%- assign count = IDX_0.departures.size | default: 0 -%}
+{%- if lang == 'de' -%}
+  {%- assign t_time = 'Uhrzeit' -%}{%- assign t_line = 'Linie' -%}{%- assign t_dir = 'Richtung' -%}
+  {%- assign t_title = 'Abfahrten' -%}{%- assign t_empty = 'Keine Abfahrten' -%}
+  {%- capture t_empty_sub -%}in den nächsten {{ duration }} Minuten{%- endcapture -%}
+{%- else -%}
+  {%- assign t_time = 'Time' -%}{%- assign t_line = 'Line' -%}{%- assign t_dir = 'Direction' -%}
+  {%- assign t_title = 'Departures' -%}{%- assign t_empty = 'No departures' -%}
+  {%- capture t_empty_sub -%}in the next {{ duration }} minutes{%- endcapture -%}
+{%- endif -%}
+
+{%- if count > 0 %}
 <div class="layout">
   <div class="columns">
     <div class="column">
       <table class="table">
         <tbody>
-          {% for depature in IDX_0.departures limit: 4 %}
+          {%- for d in IDX_0.departures limit: 4 %}
           <tr>
-            <td><span class="title title--small">{{depature.when | l_date: '%H:%M'}}</span></td>
-            <td><span class="label">{{depature.line.name}}</span></td>
-            <td><span class="label">{{depature.direction | remove: "Potsdam, "}}</span></td>
+            <td><span class="title title--small">{{ d.when | default: d.plannedWhen | l_date: '%H:%M' }}</span></td>
+            <td><span class="label">{{ d.line.name }}</span></td>
+            <td><span class="label">{{ d.direction | remove: "Potsdam, " }}</span></td>
           </tr>
-          {% endfor %}
+          {%- endfor %}
         </tbody>
       </table>
     </div>
   </div>
 </div>
+{%- else %}
+<div class="layout layout--col layout--center">
+  <span class="title">{{ t_empty }}</span>
+  <span class="description">{{ t_empty_sub }}</span>
+</div>
+{%- endif %}
 
 <div class="title_bar">
   <img class="image" src="https://usetrmnl.com/images/plugins/trmnl--render.svg">
   <span class="title">{{ trmnl.plugin_settings.instance_name }}</span>
-  <span class="instance">Abfahrten {{trmnl.plugin_settings.custom_fields_values.station}}</span>
+  <span class="instance">{{ t_title }} {{ trmnl.plugin_settings.custom_fields_values.station }}</span>
 </div>
