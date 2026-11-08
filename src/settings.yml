@@ -1,0 +1,46 @@
+---
+strategy: polling
+no_screen_padding: 'no'
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+framework_version: 2.3.7
+serverless_language:
+refresh_interval_floor:
+polling_url: "https://v6.bvg.transport.rest/stops/{{node}}/departures?results={{results}}&duration={{duration}}&language={{language}}\r\nhttps://v6.bvg.transport.rest/stops/900230999/departures?results=5&duration=60&language=de&bus=false&tram=false"
+polling_headers: ''
+polling_body: ''
+id: 113756
+custom_fields:
+- keyname: bio
+  name: About This Plugin
+  field_type: author_bio
+  description: Uses HAFAS client REST API to display departures of BVG stations
+  github_url: https://github.com/Paulpanther
+  email_address: paul.methfessel@web.de
+- keyname: node
+  name: Node
+  field_type: string
+  default: '900230071'
+  description: Get the ID by searching for location with https://v6.bvg.transport.rest/api.html#get-locations
+- keyname: station
+  name: Station name
+  field_type: string
+  description: Name of the station which will be shown in UI
+- keyname: results
+  name: Result count
+  field_type: number
+  description: Number of results fetched (View as separate limit, so fetching more than 8 does not make sense)
+  default: 8
+- keyname: duration
+  name: Duration
+  field_type: number
+  description: Show departures for how many minutes?
+  default: 60
+- keyname: language
+  name: Language
+  field_type: string
+  default: en
+name: BVG departures
+description:
+refresh_interval: 15
